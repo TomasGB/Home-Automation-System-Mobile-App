@@ -1,13 +1,47 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 import { StyleSheet, Text, View } from "react-native";
+import * as firebase from "firebase";
+import apiKeys from "./config/keys";
+import LoginScreen from "./screens/loginScreen";
+import SignUpScreen from "./screens/signupScreen";
+import HomeScreen from "./screens/homeScreen";
+import LoadingScreen from "./screens/loadingScreen";
+
+const Stack = createStackNavigator();
 
 export default function App() {
+    if (!firebase.apps.length) {
+        console.log("Connected with Firebase");
+        firebase.initializeApp(apiKeys.firebaseConfig);
+    }
+
     return (
-        <View style={styles.container}>
-            <Text>Home Automation System</Text>
-            <StatusBar style="auto" />
-        </View>
+        <NavigationContainer>
+            <Stack.Navigator>
+                <Stack.Screen
+                    name={"Loading"}
+                    component={LoadingScreen}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name="Login"
+                    component={LoginScreen}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name="SignUp"
+                    component={SignUpScreen}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name="Home"
+                    component={HomeScreen}
+                    options={{ headerShown: false }}
+                />
+            </Stack.Navigator>
+        </NavigationContainer>
     );
 }
 
