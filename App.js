@@ -6,8 +6,9 @@ import * as firebase from "firebase";
 import apiKeys from "./config/keys";
 import LoginScreen from "./screens/loginScreen";
 import SignUpScreen from "./screens/signupScreen";
-import HomeScreen from "./screens/homeScreen";
 import LoadingScreen from "./screens/loadingScreen";
+import HomeScreen from "./screens/homeScreen";
+import DevicesScreen from "./screens/devicesScreen";
 
 const Stack = createStackNavigator();
 
@@ -38,6 +39,11 @@ export default function App() {
                 <Stack.Screen
                     name="Home"
                     component={HomeScreen}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name="Devices"
+                    component={DevicesScreen}
                     options={{ headerShown: false }}
                 />
             </Stack.Navigator>

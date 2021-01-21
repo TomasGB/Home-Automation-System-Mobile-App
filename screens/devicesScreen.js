@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from "react";
-import {
-    Button,
-    StyleSheet,
-    Text,
-    View,
-    TouchableOpacity,
-    Modal,
-} from "react-native";
+import { Button, StyleSheet, Text, View } from "react-native";
 import * as firebase from "firebase";
 import { loggingOut } from "../API/methods";
 import { Ionicons } from "@expo/vector-icons";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { NavigationContainer } from "@react-navigation/native";
 
-export default function HomeScreen({ navigation }) {
+export default function DevicesScreen({ navigation }) {
     let currentUserUID = firebase.auth().currentUser.uid;
     const [Name, setName] = useState("");
 
@@ -38,8 +33,6 @@ export default function HomeScreen({ navigation }) {
         navigation.replace("Login");
     };
 
-    const [modalVisible, setModalVisible] = useState(false);
-
     return (
         <View style={styles.container}>
             <View
@@ -50,25 +43,22 @@ export default function HomeScreen({ navigation }) {
                     marginTop: 50,
                     marginLeft: 15,
                 }}>
-                <TouchableOpacity
+                <View
                     style={{
                         justifyContent: "flex-start",
                         fontSize: 18,
                         alignSelf: "center",
                         marginRight: 15,
-                    }}
-                    onPress={() => {
-                        setModalVisible(!modalVisible);
                     }}>
                     <Ionicons name="md-menu-outline" size={35} color="#000" />
-                </TouchableOpacity>
+                </View>
                 <Text
                     style={{
                         justifyContent: "flex-start",
                         fontSize: 18,
                         alignSelf: "center",
                     }}>
-                    Hi {Name}
+                    Devices
                 </Text>
             </View>
             <Text
@@ -77,34 +67,8 @@ export default function HomeScreen({ navigation }) {
                     alignSelf: "center",
                     marginTop: 25,
                 }}>
-                HomeScreen
+                Devices Screen
             </Text>
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => {
-                    console.log("Modal has been closed.");
-                }}>
-                <View
-                    style={{
-                        width: "100%",
-                        height: "80%",
-                        backgroundColor: "red",
-                        marginTop: "40%",
-                        padding: 25,
-                    }}>
-                    <View style={styles.modalView}>
-                        <TouchableOpacity
-                            style={{ alignSelf: "flex-end" }}
-                            onPress={() => {
-                                setModalVisible(!modalVisible);
-                            }}>
-                            <Ionicons name="close-outline" size={32} />
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </Modal>
             <View
                 style={{
                     flex: 1,
